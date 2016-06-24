@@ -1,0 +1,88 @@
+\documentclass[12pt]{article}
+ 
+\usepackage[margin=1in]{geometry} 
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{gensymb}
+\usepackage{hyperref}
+ 
+
+\begin{document}
+
+\date{\today}
+\title{Procedure for analyzing T. Brown HST data from 2010 and 2012 with Dolphot}
+\author{Sean Terry \& Ishaan Gandhi} 
+ 
+\maketitle
+
+\noindent {\footnotesize Keywords: \\
+\\
+``CMD" = Color-Magnitude Diagram \\
+``DM" = Dolphot Manual \\
+``DS9" = SAOImage DS9 Program  \\
+``HST" = Hubble Space Telescope \\
+``IR" = Infrared (filters) \\
+``LF" = Luminosity Function \\
+``MAST" = Mikulski Archive for Space Telescopes \\
+``PM" = Proper Motion \\
+``WFC3" = Wide Field Camera 3 \\
+``WFC3M" = Wide Field Camera 3 Manual \\
+``UVIS" = Ultraviolet and Visible (filters) \\
+}
+
+\begin{section}{Preliminary}
+Programs needed: \\
+\textbf{Dolphot} -- Dolphin Photometry (author: Andrew Dolphin, Raytheon Company) \\
+\textbf{DS9} -- Image Visualization Package (author: Smithsonian Astrophysical Observatory) \\
+\textbf{Python}
+
+
+\end{section}
+\begin{section}{Data}
+This section describes retrieving the relevant data and preparing it for analysis.
+\begin{subsection}{MAST}
+The HST data to be downloaded from the MAST archive is as follows: \\
+\begin{itemize}
+\item F555W/F814W/F160W/F110W filter data from WFC3 of the ``Stanek" field (Proposal ID: 11664) This is 2010 data.
+\item F814W filter data from WFC3 of the ``Stanek" field (Proposal ID: 12666) This is 2012 data.
+\end{itemize}
+\end{subsection}
+
+\begin{subsection}{Prep Data}
+Once files are downloaded, place them in separate (by filter) working directories (don't forget to create backups of all files as Dolphot will actively alter them during processing!) Now move only the ``\texttt{*\_flc.fits}" files into a separate (by filter again) working directory. 
+\end{subsection}
+\end{section}
+
+\begin{section}{Running Dolphot}
+Dolphot will be run from the terminal within the current working directory. Most of the steps listed here will refer to the DM or the WFC3M. At this point, creating/selecting a reference image is not necessary for our analysis. The steps for analysis are as follows: \\
+\begin{subsection}{F110W and F160W IR Images}
+\begin{itemize}
+\item Run `wfc3mask' (ref. WFC3M)
+\item Run `calcsky' (ref. WFC3M)
+\item Run `dolphot' (ref. WFC3M)
+\end{itemize}
+\end{subsection}
+
+\begin{subsection}{F814W and F555W UVIS Images}
+\begin{itemize}
+\item Run `wfc3mask' (ref. WFC3M)
+\item Run `splitgroups' (ref. WFC3M)
+\item Run `calcsky' (ref. WFC3M)
+\item Run `dolphot' (ref. WFC3M)
+\end{itemize}
+\end{subsection}
+There are several outputs from the routine; most importantly is the main photometry list (no file extension) and the `.columns' file which describes each column printed out in the photometry list. \\
+\\
+A small Python script can be written to condense this master photometry list down to an array with just the relevant quantities desired (x-position, y-position, object type, instrumental magnitude, magnitude uncertainty, etc). Cuts can also be made on the array to reject object types not listed as `star' (ref. DM and WFC3M).
+
+\end{section}
+
+\begin{section}{Color-Magnitude Diagrams}
+CMD's (F110W - F160W vs. F160W, and F555W - F814W vs. F814W) can be generated from the Dolphot master photometry lists by simply calculating the color (difference in instrumental magnitude between F110W/F160W and F555W/F814W respectively) and plotting it against the instrumental magnitude column in the various filters. An example CMD from F555W and F814W 
+
+\end{section}
+
+
+
+
+ 
+\end{document}
