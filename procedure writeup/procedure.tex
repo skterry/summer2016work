@@ -86,6 +86,21 @@ Column 16 (F555W magnitude) - Column 29 (F814W magnitude), print to new column (
 
 \end{section}
 
+\begin{section}{Proper Motions and CMD-Cleaning}
+
+The procedure for calculating the stellar PM's and cleaning the CMD's is quite tedious. The stars in the F814W images between 2010 and 2012 only move about one-half of a pixel in the x-direction and one-third of a pixel in the y-direction. A complicating factor is a systematic `jitter' that is present between the images. This jitter is due to uncertainty in the WCS coordinates listed from the telescope itself. The magnitude of the jitter is about three pixels in the x-direction and one pixel in the y-direction; much larger than the actual proper motions of the stars themselves. The solution for correcting this jitter is currently being worked on. \\
+\\ 
+A few ideas to resolve this issue are:
+\begin{itemize}
+\item Manually determine the precise jitter value in x and y and correct for this either in DS9 or another image matching program.
+\item Using an `Alignment' value that Dolphot outputs, determine the stellar shifts and somehow back-out the jitter and/or PM values.
+\item The `wfc3distort' command in Dolphot might be useful for manually matching the two images precisely in order to get PM's for individual stars.
+\end{itemize}
+
+
+
+\end{section}
+
 
 
 
