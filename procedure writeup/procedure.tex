@@ -21,6 +21,7 @@
 ``DM" = Dolphot Manual \\
 ``DS9" = SAOImage DS9 Program  \\
 ``HST" = Hubble Space Telescope \\
+``img2xym.F" = Image to x, y, magnitude (Fortran program) \\
 ``IR" = Infrared (filters) \\
 ``LF" = Luminosity Function \\
 ``MAST" = Mikulski Archive for Space Telescopes \\
@@ -39,7 +40,7 @@ Programs needed: \\
 
 \end{section}
 \begin{section}{Data}
-This section describes retrieving the relevant data and preparing it for analysis.
+This section describes retrieving the relevant data and preparing it for analysis. All of the images were taken using the HST WFC3, of a portion of sky located near the galactic center. Images were taken June 27, 2010 and June 27, 2012, approximately two calendar years apart.
 \begin{subsection}{MAST}
 The HST data to be downloaded from the MAST archive is as follows: \\
 \begin{itemize}
@@ -95,11 +96,14 @@ A few ideas to resolve this issue are:
 \item Manually determine the precise jitter value in x and y and correct for this either in DS9 or another image matching program.
 \item Using an `Alignment' value that Dolphot outputs, determine the stellar shifts and somehow back-out the jitter and/or PM values.
 \item The `wfc3distort' command in Dolphot might be useful for manually matching the two images precisely in order to get PM's for individual stars.
+\item Emailed Jay Anderson about possibly using his routine \textbf{img2xym.F} for calculating VERY precise proper motion measurements (this does not solve the `jitter' seen between the images.
 \end{itemize}
 
 
 
 \end{section}
+
+
 
 
 
