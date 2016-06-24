@@ -4,6 +4,7 @@
 \usepackage{amsmath,amsthm,amssymb}
 \usepackage{gensymb}
 \usepackage{hyperref}
+\usepackage{graphicx}
  
 
 \begin{document}
@@ -79,7 +80,9 @@ A small Python script can be written to condense this master photometry list dow
 \begin{section}{Color-Magnitude Diagrams}
 CMD's (F110W - F160W vs. F160W, and F555W - F814W vs. F814W) can be generated from the Dolphot master photometry lists by simply calculating the color (difference in instrumental magnitude between F110W/F160W and F555W/F814W respectively) and plotting it against the instrumental magnitude column in the various filters. Calculating an example CMD from F555W and F814W would be something like; \\
 \\
-Column 16 (F555W magnitude) - Column 29 (F814W magnitude), print to new column (call it `color'). Then just plot `color' column versus column 16 or 29. Color is x-axis, magnitude is y-axis.
+Column 16 (F555W magnitude) - Column 29 (F814W magnitude), print to new column (call it `color'). Then just plot `color' column versus column 16 or 29. Color is x-axis, magnitude is y-axis. Here is one CMD that has been created thus far: \\
+{\center{\includegraphics[scale=0.70]{stanekcmd.png}}} \\
+\textbf{IMPORTANT:} This CMD includes both bulge stars AND foreground disk stars. Our aim for this part of the project is to generate disk-decontaminated CMD's that are composed primarily of only bulge stars. The most efficient way to do this is by matching and rejecting stars by their proper motions, which we explain in section 5.
 
 \end{section}
 
