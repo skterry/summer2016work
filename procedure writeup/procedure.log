@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2014.5.25)  24 JUN 2016 16:00
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2014.5.25)  24 JUN 2016 16:07
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -455,20 +455,20 @@ Package rerunfilecheck Info: File `procedure.out' has not changed.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 112.
  ) 
 Here is how much of TeX's memory you used:
- 6495 strings out of 493117
- 93601 string characters out of 6135433
+ 6497 strings out of 493117
+ 93636 string characters out of 6135433
  183383 words of memory out of 5000000
- 9886 multiletter control sequences out of 15000+600000
+ 9888 multiletter control sequences out of 15000+600000
  8482 words of font info for 33 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 29i,6n,32p,673b,462s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 29i,6n,32p,791b,462s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb
 ></usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><
 /usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></u
 sr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr
 /local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/
 local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on procedure.pdf (4 pages, 132204 bytes).
+Output written on procedure.pdf (4 pages, 133125 bytes).
 PDF statistics:
  92 PDF objects out of 1000 (max. 8388607)
  77 compressed objects within 1 object stream
