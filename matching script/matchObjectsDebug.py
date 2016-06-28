@@ -1,0 +1,57 @@
+import sys
+from decimal import Decimal
+
+file1 = open('2010chip1cols.out')
+file2 = open('2012chip1cols.out')
+
+TOLERANCE = .05
+
+file1StarsList = []
+file2StarsList = []
+matches = []
+
+if len(sys.argv) == 3:
+    file1 = sys.argv[1]
+    file2 = sys.argv[2]
+
+print("----------------------------------------")
+print("Running Script: Match Objects")
+
+def myround(x, prec=2, base=.05):
+  return round(base * round(float(x)/base),prec)
+
+def lineToStar(input):
+    returningStar = input.split()
+    for i in range(len(returningStar)):
+        returningStar[i] = float(returningStar[i])
+    return returningStar
+    
+curIndex = 0
+for line in file1:
+    curStar = lineToStar(line)
+    curStar.append(curIndex)
+    file1StarsList.append(curStar)
+    curIndex+=1
+    #FEATURES ARE 0-XPOS, 1-YPOS, 2-SIGNAL-NOISE, 
+    #3-OBJTYPE, 4-TOTAL COUNTS, 5-VEGAMAG, 6-SIG-NOISE(F814)
+        
+curIndex = 0
+for line in file2:
+    curStar = lineToStar(line)
+    curStar.append(curIndex)
+    file2StarsList.append(curStar)
+    curIndex+=1
+    #FEATURES ARE 0-XPOS, 1-YPOS, 2-SIGNAL-NOISE, 
+    #3-OBJTYPE, 4-TOTAL COUNTS, 5-VEGAMAG, 6-SIG-NOISE(F814)
+        
+for star1 in file1StarsList:
+    for star2 in file2StarsList:
+        if star1[5]*(1-TOLERANCE) < star2[5] < star1[5]*(1+TOLERANCE):
+            if star1[0]+1<star2[0]<star1[0]+4:
+                if .5<star1[1]-star2[1]<2.5:
+                    dx = round(star1[0]-star2[0], 4)
+                    dy = round(star1[1]-star2[1], 4)
+                    matches.append((star1[7], star2[7], dx, dy))
+                    print("star1", 'star2', 'dx', 'dy')
+                    print(matches[-1])
+                    break
