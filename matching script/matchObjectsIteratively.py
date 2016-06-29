@@ -11,8 +11,6 @@ TOLERANCE = .05
 file1StarsList = []
 file2StarsList = []
 
-outputString = ""
-
 if len(sys.argv) == 3:
     file1 = open(sys.argv[1])
     file2 = open(sys.argv[2])
@@ -46,14 +44,14 @@ for line in file2:
 
 totalStars = len(file1StarsList)        
 for star1 in file1StarsList:
-    print("processing star {0} of {1}".format(star1[7], totalStars))
+    if star1[7] %100 == 0:
+        print("processing star {0} of {1}".format(star1[7], totalStars))
     for star2 in file2StarsList:
         if star1[5]*(1-TOLERANCE) < star2[5] < star1[5]*(1+TOLERANCE):
             if star1[0]+1<star2[0]<star1[0]+4:
                 if .5<star1[1]-star2[1]<2.5:
                     dx = round(star1[0]-star2[0], 4)
                     dy = round(star1[1]-star2[1], 4)
-                    outputString+="{0} {1} {2} {3}\n".format(star1[7], star2[7], dx, dy)
+                    with open (OUTPUTNAME, 'a') as f: f.write ("{0} {1} {2} {3}\n".format(star1[7], star2[7], dx, dy)) 
                     break
                     
-with open (OUTPUTNAME, 'a') as f: f.write (outputString) 
