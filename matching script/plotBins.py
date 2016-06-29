@@ -6,7 +6,7 @@ dyList = []
 dxBin = []
 dyBin = []
 ALPHA = .05
-BINSIZE = 5
+BINSIZE = 10
 
 IMAGEOUT = 'dxdy.png'
 
@@ -37,6 +37,12 @@ print("Average dy: {}".format(dyAverage))
 #1) BIN ITEMS INTO GROUPS OF 100
 #2) CALCULATE DIFFERENCE BETWEEN BIN AVERAGE AND OVERALL AVERAGE
 #3) PUT EACH DX AND DY INTO BINS FOR GRAPHING
+
+#dxAverage = -3.36
+#dyAverage = 1.19
+dxAverage = -3.36
+dyAverage = 1.28
+
 print("\nBinning.............")
 numBins = int(totalMatches/BINSIZE)-1
 for i in range(numBins):
@@ -44,8 +50,11 @@ for i in range(numBins):
     sys.stdout.flush()
     curdx = sum(dxList[i*BINSIZE:(i+1)*BINSIZE])/BINSIZE
     curdy = sum(dyList[i*BINSIZE:(i+1)*BINSIZE])/BINSIZE
-    dxBin.append(curdx-dxAverage)
-    dyBin.append(curdy-dyAverage)
+    dxBin.append((curdx-dxAverage)/.04)
+    dyBin.append((curdy-dyAverage)/.04)
+    #if dxBin[-1] < -7 or dxBin[-1]>7:
+    #    dxBin.pop()
+    #    dyBin.pop()
 
 print("\n\nCreating plot.............")    
 #GENERATE AND DISPLAY SCATTER PLOT
@@ -53,5 +62,6 @@ plt.scatter(dxBin, dyBin, alpha=ALPHA)
 ax = plt.gca() #get current axis
 ax.set_ylabel('dy')
 ax.set_xlabel('dx')
+ax.invert_xaxis()
 plt.savefig("dxdy.png")
 plt.show()
