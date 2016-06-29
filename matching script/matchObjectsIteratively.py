@@ -43,9 +43,10 @@ for line in file2:
     curIndex+=1
     #FEATURES ARE 0-XPOS, 1-YPOS, 2-SIGNAL-NOISE, 
     #3-OBJTYPE, 4-TOTAL COUNTS, 5-VEGAMAG, 6-SIG-NOISE(F814)
-        
+
+totalStars = len(file1StarsList)        
 for star1 in file1StarsList:
-    
+    print("processing star {0} of {1}".format(star1[7], totalStars))
     for star2 in file2StarsList:
         if star1[5]*(1-TOLERANCE) < star2[5] < star1[5]*(1+TOLERANCE):
             if star1[0]+1<star2[0]<star1[0]+4:
