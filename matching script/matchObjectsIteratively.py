@@ -52,6 +52,7 @@ for star1 in file1StarsList:
                     dx = round(star1[0]-star2[0], 4)
                     dy = round(star1[1]-star2[1], 4)
                     matches.append((star1[7], star2[7], dx, dy))
+                    print("")
                     print("star1", 'star2', 'dx', 'dy')
                     print(matches[-1])
                     break
