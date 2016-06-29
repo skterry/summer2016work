@@ -1,7 +1,7 @@
 import sys
 from decimal import Decimal
 
-OUTPUTNAME = 'matchedStars.out'
+OUTPUTNAME = 'matchedStars2.out'
 
 file1 = open('2010chip1cols.out')
 file2 = open('2012chip1cols.out')

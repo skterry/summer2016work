@@ -5,7 +5,13 @@ dxList = []
 dyList = []
 dxBin = []
 dyBin = []
-ALPHA = .5
+ALPHA = .05
+BINSIZE = 5
+
+IMAGEOUT = 'dxdy.png'
+
+if len(sys.argv)==2:
+    IMAGEOUT = sys.argv[1]
 
 matchedStarsFile = open('matchedStars.out')
 
@@ -13,7 +19,7 @@ print("----------------------------------------")
 print("Running Script: Average, bin, aand plot")
 
 #CALCULATE AVERAGE DX AND DY OF ALL 150K ITEMS, EXTRACTED FROM COLS 3 AND 4, RESPECTIVELY
-print("Calculating average dx and dy...")
+print("\nCalculating average dx and dy.............")
 totalMatches = 0
 for line in matchedStarsFile:
     args = line.split()
@@ -31,17 +37,21 @@ print("Average dy: {}".format(dyAverage))
 #1) BIN ITEMS INTO GROUPS OF 100
 #2) CALCULATE DIFFERENCE BETWEEN BIN AVERAGE AND OVERALL AVERAGE
 #3) PUT EACH DX AND DY INTO BINS FOR GRAPHING
-print("\nBinning and creating plot...")
-for i in range(int(totalMatches/100)-1):
-    curdx = sum(dxList[i*100:(i+1)*100])/100
-    curdy = sum(dyList[i*100:(i+1)*100])/100
+print("\nBinning.............")
+numBins = int(totalMatches/BINSIZE)-1
+for i in range(numBins):
+    sys.stdout.write("\r{0}%".format(100*i/numBins+1))
+    sys.stdout.flush()
+    curdx = sum(dxList[i*BINSIZE:(i+1)*BINSIZE])/BINSIZE
+    curdy = sum(dyList[i*BINSIZE:(i+1)*BINSIZE])/BINSIZE
     dxBin.append(curdx-dxAverage)
     dyBin.append(curdy-dyAverage)
-    
+
+print("\n\nCreating plot.............")    
 #GENERATE AND DISPLAY SCATTER PLOT
 plt.scatter(dxBin, dyBin, alpha=ALPHA)
 ax = plt.gca() #get current axis
 ax.set_ylabel('dy')
-ax.set_xlabel('dy')
+ax.set_xlabel('dx')
 plt.savefig("dxdy.png")
 plt.show()
