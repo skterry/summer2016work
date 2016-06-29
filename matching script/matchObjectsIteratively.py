@@ -1,6 +1,8 @@
 import sys
 from decimal import Decimal
 
+OUTPUTNAME = 'matchedStars.out'
+
 file1 = open('2010chip1cols.out')
 file2 = open('2012chip1cols.out')
 
@@ -11,14 +13,11 @@ file2StarsList = []
 matches = []
 
 if len(sys.argv) == 3:
-    file1 = sys.argv[1]
-    file2 = sys.argv[2]
+    file1 = open(sys.argv[1])
+    file2 = open(sys.argv[2])
 
 print("----------------------------------------")
 print("Running Script: Match Objects")
-
-def myround(x, prec=2, base=.05):
-  return round(base * round(float(x)/base),prec)
 
 def lineToStar(input):
     returningStar = input.split()
@@ -51,8 +50,7 @@ for star1 in file1StarsList:
                 if .5<star1[1]-star2[1]<2.5:
                     dx = round(star1[0]-star2[0], 4)
                     dy = round(star1[1]-star2[1], 4)
-                    matches.append((star1[7], star2[7], dx, dy))
-                    print("")
-                    print("star1", 'star2', 'dx', 'dy')
-                    print(matches[-1])
+                    outputString+="{0} {1} {2} {3}\n".format(star1[7], star2[7], dx, dy)
                     break
+                    
+with open (OUTPUTNAME, 'a') as f: f.write (outputString) 
