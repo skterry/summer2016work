@@ -10,7 +10,8 @@ TOLERANCE = .05
 
 file1StarsList = []
 file2StarsList = []
-matches = []
+
+outputString = ""
 
 if len(sys.argv) == 3:
     file1 = open(sys.argv[1])
@@ -44,6 +45,7 @@ for line in file2:
     #3-OBJTYPE, 4-TOTAL COUNTS, 5-VEGAMAG, 6-SIG-NOISE(F814)
         
 for star1 in file1StarsList:
+    
     for star2 in file2StarsList:
         if star1[5]*(1-TOLERANCE) < star2[5] < star1[5]*(1+TOLERANCE):
             if star1[0]+1<star2[0]<star1[0]+4:
