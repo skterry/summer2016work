@@ -48,7 +48,7 @@ for star1 in file1StarsList:
         print("processing star {0} of {1}".format(star1[7], totalStars))
     for star2 in file2StarsList:
         if star1[5]*(1-TOLERANCE) < star2[5] < star1[5]*(1+TOLERANCE):
-            if star1[0]+1<star2[0]<star1[0]+4:
+            if star1[0]+1<star2[0]<star1[0]+5:
                 if .5<star1[1]-star2[1]<2.5:
                     dx = round(star1[0]-star2[0], 4)
                     dy = round(star1[1]-star2[1], 4)

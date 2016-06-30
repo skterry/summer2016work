@@ -38,10 +38,17 @@ print("Average dy: {}".format(dyAverage))
 #2) CALCULATE DIFFERENCE BETWEEN BIN AVERAGE AND OVERALL AVERAGE
 #3) PUT EACH DX AND DY INTO BINS FOR GRAPHING
 
+#ird python program - drizzled
 #dxAverage = -3.36
 #dyAverage = 1.19
-dxAverage = -3.36
-dyAverage = 1.28
+
+#ird python program - from full frame
+#dxAverage = -3.36688
+#dyAverage = 1.28508
+
+#dolphot alignment
+#dxAverage = -3.36
+#dyAverage = 1.19
 
 print("\nBinning.............")
 numBins = int(totalMatches/BINSIZE)-1
