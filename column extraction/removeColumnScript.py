@@ -12,6 +12,8 @@ for line in input:
     #ONLY EXTRACT COLUMN FEATURES FOR OBJECTTYPE=BRIGHT STAR
     #FEATURES EXTRACTED ARE XPOS, YPOS, OBJTYPE, VEGAMAG
     if args[10] == "1" and args[15] != "99.999" and args[28] != "99.999":
-        outputString+="{0} {1} {2} {3} {4} {5} {6}\n".format(args[2], args[3], args[10], args[15], args[22], args[28], args[35])
+        f555mag = float(args[15])
+        f814mag = float(args[28])
+        outputString+="{0} {1} {2} {3} {4} {5} {6} {7}\n".format(args[2], args[3], args[10], args[15], args[22], args[28], args[35], f555mag-f814mag)
         
 with open (OUTPUTNAME, 'a') as f: f.write (outputString) 
