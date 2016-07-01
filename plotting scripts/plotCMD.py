@@ -16,13 +16,13 @@ bulgeFile.close()
 
 for plotPair in sepFile:
 	xandy = plotPair.split(',')
-	x.append(float(xandy[0]))
-	y.append(float(xandy[1]))
+	x.append(float(xandy[3]))
+	y.append(float(xandy[5]))
 	
 # for plotPair in sepDisk:
 	aandb = plotPair.split(',')
-	x.append(float(xandy[0]))
-	y.append(float(xandy[1]))
+	x.append(float(xandy[3]))
+	y.append(float(xandy[5]))
 	
 
 
