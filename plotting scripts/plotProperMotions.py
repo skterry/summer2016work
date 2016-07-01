@@ -37,7 +37,6 @@ for line in matchedStarsFile:
     
     if dx/2 > maxXRange:
         maxXRange = dx/2
-    
     if dy/2 > maxYRange:
         maxYRange = dy/2
     
