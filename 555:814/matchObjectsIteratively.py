@@ -41,7 +41,7 @@ for line in file2:
 totalStars = len(file1StarsList)        
 for star1 in file1StarsList:
     if star1[8] %100 == 0:
-        print("processing star {0} of {1}".format(star1[7], totalStars))
+        print("processing star {0} of {1}".format(star1[8], totalStars))
     for star2 in file2StarsList:
         if star1[5]*(1-TOLERANCE) < star2[3] < star1[5]*(1+TOLERANCE):
             if star1[0]+1<star2[0]<star1[0]+5:
