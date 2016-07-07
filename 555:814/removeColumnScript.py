@@ -10,7 +10,8 @@ for line in input:
     args = line.split()
     
     #ONLY EXTRACT COLUMN FEATURES FOR OBJECTTYPE=BRIGHT STAR
-    #FEATURES EXTRACTED ARE XPOS, YPOS, OBJTYPE, VEGAMAG
+    #FEATURES EXTRACTED ARE: X, Y, OBJ. TYPE, VEGAMAG 555, CROWDING 555, 
+    #VEGAMAG 814, CROWDING 814, F555VEGAMAG - F814VEGAMAG
     if args[10] == "1" and args[15] != "99.999" and args[28] != "99.999":
         f555mag = float(args[15])
         f814mag = float(args[28])
