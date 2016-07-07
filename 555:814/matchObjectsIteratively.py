@@ -40,7 +40,7 @@ for line in file2:
 
 totalStars = len(file1StarsList)        
 for star1 in file1StarsList:
-    if star1[7] %100 == 0:
+    if star1[8] %100 == 0:
         print("processing star {0} of {1}".format(star1[7], totalStars))
     for star2 in file2StarsList:
         if star1[5]*(1-TOLERANCE) < star2[3] < star1[5]*(1+TOLERANCE):
@@ -48,6 +48,6 @@ for star1 in file1StarsList:
                 if .5<star1[1]-star2[1]<2.5:
                     dx = round(star1[0]-star2[0], 4)
                     dy = round(star1[1]-star2[1], 4)
-                    with open (OUTPUTNAME, 'a') as f: f.write ("{0} {1} {2} {3}\n".format(star1[8], star2[5], dx, dy)) 
+                    with open (OUTPUTNAME, 'a') as f: f.write ("{0} {1} {2} {3} {4}\n".format(star1[8], star2[5], dx, dy, star1[7])) 
                     break
                     
