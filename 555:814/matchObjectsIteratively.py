@@ -3,8 +3,8 @@ from decimal import Decimal
 
 OUTPUTNAME = 'matchedStars.out'
 
-file1 = open('F555_814.out')
-file2 = open('F8142012.out')
+file1 = open('F555-814chip1.out')
+file2 = open('F8142012chip1.out')
 
 TOLERANCE = .05
 
@@ -48,6 +48,6 @@ for star1 in file1StarsList:
                 if .5<star1[1]-star2[1]<2.5:
                     dx = round(star1[0]-star2[0], 4)
                     dy = round(star1[1]-star2[1], 4)
-                    with open (OUTPUTNAME, 'a') as f: f.write ("{0} {1} {2} {3}\n".format(star1[7], star2[5], dx, dy)) 
+                    with open (OUTPUTNAME, 'a') as f: f.write ("{0} {1} {2} {3}\n".format(star1[8], star2[5], dx, dy)) 
                     break
                     
