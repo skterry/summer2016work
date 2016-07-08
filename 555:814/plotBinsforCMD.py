@@ -8,7 +8,7 @@ dxBin = []
 dyBin = []
 colorList = []
 ALPHA = 1
-BINSIZE = 1
+BINSIZE = 10
 
 IMAGEOUT = 'dxdy.png'
 
@@ -77,7 +77,10 @@ if BINSIZE == 1:
             
 print("\n\nCreating plot.............")    
 #GENERATE AND DISPLAY SCATTER PLOT
-c1 = plt.scatter(dxBin, dyBin, c=colorList, s=30, alpha=ALPHA)
+if BINSIZE == 1:
+    plt.scatter(dxBin, dyBin, c=colorList, s=30, alpha=ALPHA)
+else:
+    plt.scatter(dxBin, dyBin, s=30, alpha=ALPHA)
 ax = plt.gca() #get current axis
 ax.set_ylabel('dy')
 ax.set_xlabel('dx')
