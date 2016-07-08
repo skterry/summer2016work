@@ -12,6 +12,8 @@ BINSIZE = 1
 
 IMAGEOUT = 'dxdy.png'
 
+#number of chip 2 rows = 40274
+
 if len(sys.argv)==2:
     IMAGEOUT = sys.argv[1]
 
@@ -33,9 +35,17 @@ for line in matchedStarsFile:
 #dxAverage = -3.36
 #dyAverage = 1.19
 
+#ird python program - chip1
+dxAverage1 = -3.26796
+dyAverage1 = 1.22179
+
+#ird python program - chip2
+dxAverage2 = -3.19733
+dyAverage2 = 1.27698
+
 #ird python program - from full frame
-dxAverage = -3.36688
-dyAverage = 1.28508
+#dxAverage = -3.36688
+#dyAverage = 1.28508
 
 #dolphot alignment
 #dxAverage = -3.36
@@ -48,8 +58,12 @@ for i in range(numBins):
     sys.stdout.flush()
     curdx = sum(dxList[i*BINSIZE:(i+1)*BINSIZE])/BINSIZE
     curdy = sum(dyList[i*BINSIZE:(i+1)*BINSIZE])/BINSIZE
-    dxBin.append((curdx-dxAverage)/.04)
-    dyBin.append((curdy-dyAverage)/.04)
+    if (i < 40274/BINSIZE):
+        dxBin.append((curdx-dxAverage2)/.04)
+        dyBin.append((curdy-dyAverage2)/.04)
+    else:
+        dxBin.append((curdx-dxAverage1)/.04)
+        dyBin.append((curdy-dyAverage1)/.04)
     #if dxBin[-1] < -7 or dxBin[-1]>7:
     #    dxBin.pop()
     #    dyBin.pop()
