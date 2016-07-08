@@ -43,6 +43,10 @@ dyAverage1 = 1.22179
 dxAverage2 = -3.19733
 dyAverage2 = 1.27698
 
+#ird python program - from chip 2 ird ishaan
+#dxAverage = -3.24303
+#dyAverage = 1.32211
+
 #ird python program - from full frame
 #dxAverage = -3.36688
 #dyAverage = 1.28508
