@@ -7,8 +7,8 @@ dyList = []
 dxBin = []
 dyBin = []
 colorList = []
-ALPHA = 1
-BINSIZE = 10
+ALPHA = .3
+BINSIZE = 1
 
 IMAGEOUT = 'dxdy.png'
 
@@ -17,7 +17,7 @@ IMAGEOUT = 'dxdy.png'
 if len(sys.argv)==2:
     IMAGEOUT = sys.argv[1]
 
-matchedStarsFile = open('matchedStars.out')
+matchedStarsFile = open('matchedStarsBranches.out')
 
 print("----------------------------------------")
 print("Running Script: Average, bin, and plot")
@@ -31,63 +31,92 @@ for line in matchedStarsFile:
     colorList.append(float(args[4]))
     totalMatches+=1
 
-#ird python program - drizzled
-#dxAverage = -3.36
-#dyAverage = 1.19
+#matlab program - chip1
+dxAverage1 = -3.278
+dyAverage1 = 1.283
 
-#ird python program - chip1
-dxAverage1 = -3.26796
-dyAverage1 = 1.22179
-
-#ird python program - chip2
-dxAverage2 = -3.19733
-dyAverage2 = 1.27698
-
-#ird python program - from chip 2 ird ishaan
-#dxAverage = -3.24303
-#dyAverage = 1.32211
-
-#ird python program - from full frame
-#dxAverage = -3.36688
-#dyAverage = 1.28508
-
-#dolphot alignment
-#dxAverage = -3.36
-#dyAverage = 1.19
+#matlab program - chip2
+dxAverage2 = -3.192
+dyAverage2 = 1.384
 
 print("\nBinning.............")
 numBins = int(totalMatches/BINSIZE)
+radius = 1
 for i in range(numBins):
     sys.stdout.write("\r{0}%".format(100*i/numBins+1))
     sys.stdout.flush()
     curdx = sum(dxList[i*BINSIZE:(i+1)*BINSIZE])/BINSIZE
     curdy = sum(dyList[i*BINSIZE:(i+1)*BINSIZE])/BINSIZE
-    if (i < 40274/BINSIZE):
-        dxBin.append((curdx-dxAverage2)/.04)
-        dyBin.append((curdy-dyAverage2)/.04)
+    if (i < 527/BINSIZE):
+        plotX = curdx-dxAverage2
+        plotY = curdy-dyAverage2
+        if plotX**2+plotY**2<radius:
+            dxBin.append(plotX/.04)
+            dyBin.append(plotY/.04)
+        else:
+            colorList.pop(i)
     else:
-        dxBin.append((curdx-dxAverage1)/.04)
-        dyBin.append((curdy-dyAverage1)/.04)
+        plotX = curdx-dxAverage1
+        plotY = curdy-dyAverage1
+        if plotX**2+plotY**2<radius:
+            dxBin.append(plotX/.04)
+            dyBin.append(plotY/.04)
+        else:
+            colorList.pop(i)
     #if dxBin[-1] < -7 or dxBin[-1]>7:
     #    dxBin.pop()
     #    dyBin.pop()
+dx1Centroid = 0.0
+dy1Centroid = 0.0
+dx2Centroid = 0.0
+dy2Centroid = 0.0
+
+diskCount = 0 #left side - dx1/dy1
+bulgeCount = 0 #right side - dx2/dy2
+
+numBins = int(len(dxBin))
 
 if BINSIZE == 1:
     for i in range(numBins):
-        if colorList[i] < 2.15:
-            colorList[i] = .75
+        if colorList[i] < 2.05:
+            dx1Centroid+=dxBin[i]
+            dy1Centroid+=dyBin[i]
+            diskCount+=1
+            colorList[i] = .75#blue
         else:
-            colorList[i] = .25
-            
+            dx2Centroid+=dxBin[i]
+            dy2Centroid+=dyBin[i]
+            bulgeCount+=1
+            colorList[i] = .25#red
+    dx1Centroid = dx1Centroid /diskCount
+    dy1Centroid = dy1Centroid /diskCount
+    dx2Centroid = dx2Centroid /bulgeCount
+    dy2Centroid = dy2Centroid /bulgeCount
+    
+    print("\nCentroid values......")
+    print(dx1Centroid)
+    print(dy1Centroid)
+    print(dx2Centroid)
+    print(dy2Centroid)
+    
+       
 print("\n\nCreating plot.............")    
 #GENERATE AND DISPLAY SCATTER PLOT
 if BINSIZE == 1:
-    plt.scatter(dxBin, dyBin, c=colorList, s=30, alpha=ALPHA)
+    c1 = plt.scatter(dxBin, dyBin,c=colorList, s=30, alpha=ALPHA)
 else:
-    plt.scatter(dxBin, dyBin, s=30, alpha=ALPHA)
+    c1 = plt.scatter(dxBin, dyBin, s=30, alpha=ALPHA)
 ax = plt.gca() #get current axis
 ax.set_ylabel('dy')
 ax.set_xlabel('dx')
+
+#ADD LINES
+ax.axhline(dy1Centroid, linestyle='-', color='b') # horizontal lines disk
+ax.axvline(dx1Centroid, linestyle='-', color='b') # vertical lines disk
+
+ax.axhline(dy2Centroid, linestyle='-', color='r') # horizontal lines bulge
+ax.axvline(dx2Centroid, linestyle='-', color='r') # vertical lines bulge
+
 ax.invert_xaxis()
 plt.savefig(IMAGEOUT)
 plt.show()
