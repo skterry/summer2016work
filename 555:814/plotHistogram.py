@@ -91,7 +91,7 @@ def gauss(x, *p):
     
 def calcFit(data):
 
-    hist, bin_edges = numpy.histogram(diskDx, 100, density=True)
+    hist, bin_edges = numpy.histogram(data, 100, density=True)
     bin_centres = (bin_edges[:-1] + bin_edges[1:])/2
 
     # p0 is the initial guess for the fitting coefficients (A, mu and sigma above)
@@ -108,21 +108,25 @@ def calcFit(data):
 print("\n\nCreating plot.............")    
 #GENERATE AND DISPLAY HISTOGRAM
 
-histData = [(diskDx, bulgeDx), (bulgeDy, diskDy)]
-histTitles = ['diskDx, bulgeDx', 'bulgeDy, diskDy']
+histData = [(diskDx, bulgeDx), (diskDy, bulgeDy)]
+histTitles = ['dx (mas/yr)', 'dy (mas/yr)']
 for k, dimension in enumerate(histData):
     plt.subplot(2, 1, k)
     axes = plt.gca()
     
-    plt.hist(dimension[0], bins=15, normed=True, histtype='step', color='r')
+    plt.hist(dimension[0], bins=15, normed=True, histtype='step', color='r', label='disk')
     (hist_fit, bin_centres) = calcFit(dimension[0])
-    plt.plot(bin_centres, hist_fit, color='r')
+    plt.plot(bin_centres, hist_fit, color='r', linestyle='--')
     
-    plt.hist(dimension[1], bins=15, normed=True, histtype='step', color='g')
+    plt.hist(dimension[1], bins=15, normed=True, histtype='step', color='g', label = 'bulge')
     (hist_fit, bin_centres) = calcFit(dimension[1])
-    plt.plot(bin_centres, hist_fit, color='g')
+    plt.plot(bin_centres, hist_fit, color='g', linestyle='--')
+    
     
     ax = plt.gca() #get current axis
+    handles, labels = ax.get_legend_handles_labels()
+    ax.legend(handles, labels)
+    
     ax.set_ylabel('Number')
     ax.set_xlabel(histTitles[k])
 
