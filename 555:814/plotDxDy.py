@@ -39,6 +39,15 @@ dyAverage1 = 1.283
 dxAverage2 = -3.192
 dyAverage2 = 1.384
 
+c="""
+#IRD Python Program  Chip1
+dxAverage1=-3.37293888426 
+dyAverage1=1.28905678601
+
+#IRD Python Program Chip 2
+dxAverage2=-3.07407676245 
+dyAverage2= 1.35405712439"""
+
 print("\nBinning.............")
 numBins = int(totalMatches/BINSIZE)
 radius = 1
@@ -51,16 +60,16 @@ for i in range(numBins):
         plotX = curdx-dxAverage2
         plotY = curdy-dyAverage2
         if plotX**2+plotY**2<radius:
-            dxBin.append(plotX/.04)
-            dyBin.append(plotY/.04)
+            dxBin.append(plotX/.08)
+            dyBin.append(plotY/.08)
         else:
             colorList.pop(i)
     else:
         plotX = curdx-dxAverage1
         plotY = curdy-dyAverage1
         if plotX**2+plotY**2<radius:
-            dxBin.append(plotX/.04)
-            dyBin.append(plotY/.04)
+            dxBin.append(plotX/.08)
+            dyBin.append(plotY/.08)
         else:
             colorList.pop(i)
     #if dxBin[-1] < -7 or dxBin[-1]>7:
