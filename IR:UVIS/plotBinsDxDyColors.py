@@ -12,6 +12,10 @@ BINSIZE = 1
 
 IMAGEOUT = 'dxdy.png'
 
+#matlab program - chip1
+dxAverage1 = -3.36777
+dyAverage1 = 1.19224
+
 #number of chip 2 rows = 40274
 
 if len(sys.argv)==2:
@@ -35,30 +39,59 @@ bulgeCount = 0 #right side - dx2/dy2
 totalMatches = 0
 for i, line in enumerate(matchedStarsFile):
     args = line.split()
-    color = float(args[2]) - float(args[6])
+    color = float(args[4]) - float(args[6])
     mag = float(args[6])
     dx = float(args[8])
     dy = float(args[9])
-    if 0.75<color<.85 and 18<mag<18.2: #disk
-        #if diskCount>122:
-        #    continue
+    
+
+    plotX = dx-dxAverage1
+    plotY = dy-dyAverage1
+    
+    if (plotX/.08)**2 + (plotY/.08)**2 > 64:
+        continue
+    
+    if 0.0<color<0.25 and 18.3<mag<19.0: #disk
+        if diskCount>417:
+            continue
         dxList.append(dx)
         dyList.append(dy)
-        dx1Centroid+=dx
-        dy1Centroid+=dy
+        dx1Centroid+=(plotX/.08)
+        dy1Centroid+=(plotY/.08)
         diskCount+=1
         colorList.append('red')
         totalMatches+=1
     
-    if 1.65<color<1.75 and 18.6<mag<18.75: #bulge
+    if 0.62<color<0.68 and 18.8<mag<19.2: #bulge
         dxList.append(dx)
         dyList.append(dy)
-        dx2Centroid+=dx
-        dy2Centroid+=dy
+        dx2Centroid+=(plotX/.08)
+        dy2Centroid+=(plotY/.08)
         bulgeCount+=1
         colorList.append('blue')
         totalMatches+=1
 
+disks = 0
+bulges = 0
+
+print("\nCalculating separation.............")
+numBins = int(totalMatches/BINSIZE)
+radius = 1
+for i in range(numBins):
+    curdx = sum(dxList[i*BINSIZE:(i+1)*BINSIZE])/BINSIZE
+    curdy = sum(dyList[i*BINSIZE:(i+1)*BINSIZE])/BINSIZE
+    plotX = curdx-dxAverage1
+    plotY = curdy-dyAverage1
+    
+    dxBin.append(plotX/.08)
+    dyBin.append(plotY/.08)
+    
+    if dxBin[i] < -4:
+        if colorList[i] == 'red':
+            disks+=1
+        if colorList[i] == 'blue':
+            bulges+=1
+            
 dx1Centroid = dx1Centroid /diskCount
 dy1Centroid = dy1Centroid /diskCount
 dx2Centroid = dx2Centroid /bulgeCount
@@ -73,29 +106,6 @@ print(dy1Centroid)
 print(dx2Centroid)
 print(dy2Centroid)
 
-#matlab program - chip1
-dxAverage1 = -3.36777
-dyAverage1 = 1.19224
-
-disks = 0
-bulges = 0
-
-print("\nCalculating separation.............")
-numBins = int(totalMatches/BINSIZE)
-radius = 1
-for i in range(numBins):
-    curdx = sum(dxList[i*BINSIZE:(i+1)*BINSIZE])/BINSIZE
-    curdy = sum(dyList[i*BINSIZE:(i+1)*BINSIZE])/BINSIZE
-    plotX = curdx-dxAverage1
-    plotY = curdy-dyAverage1
-    dxBin.append(plotX/.08)
-    dyBin.append(plotY/.08)
-    
-    if dxBin[i] < -4:
-        if colorList[i] == 'red':
-            disks+=1
-        if colorList[i] == 'blue':
-            bulges+=1
 print("\n\nDisks, bulges.............")    
 print(str(disks) + " " + str(bulges))    
  
